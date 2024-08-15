@@ -100,7 +100,8 @@
 #include "mlir/Target/LLVM/NVVM/Target.h"
 #include "mlir/Target/LLVM/ROCDL/Target.h"
 #include "mlir/Target/SPIRV/Target.h"
-
+#include "mlir/Dialect/Hello/HelloDialect.h"
+#include "mlir/Dialect/Hello/HelloOps.h"
 namespace mlir {
 
 /// Add all the MLIR dialects to the provided registry.
@@ -150,7 +151,8 @@ inline void registerAllDialects(DialectRegistry &registry) {
                   ub::UBDialect,
                   vector::VectorDialect,
                   x86vector::X86VectorDialect,
-                  xegpu::XeGPUDialect>();
+                  xegpu::XeGPUDialect,
+                  hello::HelloDialect>();
   // clang-format on
 
   // Register all external models.

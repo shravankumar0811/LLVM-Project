@@ -27,6 +27,7 @@
 #include "mlir/Dialect/Func/Transforms/Passes.h"
 #include "mlir/Dialect/GPU/Pipelines/Passes.h"
 #include "mlir/Dialect/GPU/Transforms/Passes.h"
+#include "mlir/Dialect/Hello/Passes.h"
 #include "mlir/Dialect/LLVMIR/Transforms/Passes.h"
 #include "mlir/Dialect/Linalg/Passes.h"
 #include "mlir/Dialect/MLProgram/Transforms/Passes.h"
@@ -93,6 +94,7 @@ inline void registerAllPasses() {
   arm_sve::registerArmSVEPasses();
   emitc::registerEmitCPasses();
   xegpu::registerXeGPUPasses();
+  hello::registerHelloPasses();
 
   // Dialect pipelines
   bufferization::registerBufferizationPipelines();
