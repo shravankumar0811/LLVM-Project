@@ -183,6 +183,12 @@ def AffineLoopInvariantCodeMotion
   let constructor = "mlir::affine::createAffineLoopInvariantCodeMotionPass()";
 }
 
+def AffineLoopInvariantHoist
+    : Pass<"affine-loop-invariant-hoist", "func::FuncOp"> {
+  let summary = "Hoist loop invariant instructions outside of affine loops";
+  let constructor = "mlir::affine::createAffineLoopInvariantHoistPass()";
+}
+
 def AffineLoopTiling : Pass<"affine-loop-tile", "func::FuncOp"> {
   let summary = "Tile affine loop nests";
   let constructor = "mlir::affine::createLoopTilingPass()";
