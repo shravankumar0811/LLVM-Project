@@ -19,6 +19,7 @@
 #include "mlir/InitAllPasses.h"
 #include "mlir/Pass/Pass.h"
 #include "mlir/Pass/PassManager.h"
+#include "mlir/Registration/Pipelines.h"
 #include "mlir/Support/FileUtilities.h"
 #include "mlir/Target/LLVMIR/Dialect/All.h"
 #include "mlir/Tools/mlir-opt/MlirOptMain.h"
@@ -26,7 +27,6 @@
 #include "llvm/Support/InitLLVM.h"
 #include "llvm/Support/SourceMgr.h"
 #include "llvm/Support/ToolOutputFile.h"
-
 using namespace llvm;
 using namespace mlir;
 
@@ -302,6 +302,7 @@ int main(int argc, char **argv) {
   DialectRegistry registry;
   registerAllDialects(registry);
   registerAllExtensions(registry);
+  mlir::registerAllPipelines();
 
   // TODO: Remove this and the corresponding MLIRToLLVMIRTranslationRegistration
   // cmake dependency when a safe dialect interface registration mechanism is
