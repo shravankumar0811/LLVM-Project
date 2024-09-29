@@ -49,6 +49,32 @@ createAffineLoopInvariantCodeMotionPass();
 std::unique_ptr<OperationPass<func::FuncOp>>
 createAffineLoopInvariantHoistPass();
 
+/// Creates a loop permute pass that changes the  loop  order
+/// of affine loops based on permutation map.
+std::unique_ptr<OperationPass<func::FuncOp>>
+createAffineLoopPermutePass(llvm::ArrayRef<int64_t> permList = {});
+
+/// Creates a pass to perform tiling on loop nests.
+std::unique_ptr<OperationPass<func::FuncOp>>
+createAffineLoopBlockingPass(llvm::ArrayRef<int64_t> blockList = {});
+
+/// Creates a loop permute pass that interchanges the  loop  order
+/// of only 2 affine loops.
+std::unique_ptr<OperationPass<func::FuncOp>> createAffineLoopSwapPass();
+
+/// Creates a loop fussion pass that merges the 2 affine loops.
+std::unique_ptr<OperationPass<func::FuncOp>> createAffineLoopMergePass();
+
+/// Creates a loop unrolling pass with the unrollFactor parameter.
+std::unique_ptr<OperationPass<func::FuncOp>>
+createAffineLoopUnfoldPass(int unrollFactor = -1);
+
+/// Creates a loop unroll jam pass to unroll jam by the specified factor. A
+/// factor of -1 lets the pass use the default factor or the one on the command
+/// line if provided.
+std::unique_ptr<OperationPass<func::FuncOp>>
+createAffineLoopUnrollAndFusePass(int unrollJamFactor = -1);
+
 /// Creates a pass to convert all parallel affine.for's into 1-d affine.parallel
 /// ops.
 std::unique_ptr<OperationPass<func::FuncOp>> createAffineParallelizePass();
