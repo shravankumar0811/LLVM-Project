@@ -189,6 +189,59 @@ def AffineLoopInvariantHoist
   let constructor = "mlir::affine::createAffineLoopInvariantHoistPass()";
 }
 
+def AffineLoopPermute
+    : Pass<"affine-loop-permute", "func::FuncOp"> {
+  let summary = "Interchanging order of multiple affine loops based on permutation map";
+  let constructor = "mlir::affine::createAffineLoopPermutePass()";
+  let options = [
+    ListOption<"permList", "permutation-map", "int64_t",
+               "List of for op reordering "
+               "(overridden by -permute-map)">,
+  ];
+}
+
+def AffineLoopSwap
+    : Pass<"affine-loop-interchange", "func::FuncOp"> {
+  let summary = "Interchanging order of only 2 affine loops";
+  let constructor = "mlir::affine::createAffineLoopSwapPass()";
+}
+
+def AffineLoopMerge
+    : Pass<"affine-loop-merge", "func::FuncOp"> {
+  let summary = "Merging of 2 affine loops";
+  let constructor = "mlir::affine::createAffineLoopMergePass()";
+}
+
+def AffineLoopUnfold
+    : Pass<"affine-loop-unfold", "func::FuncOp"> {
+  let summary = "Duplicating inner loop body multiple times to reduce the number of iterations";
+  let constructor = "mlir::affine::createAffineLoopUnfoldPass()";
+  let options = [
+    Option<"unrollFactor", "unroll-factor", "unsigned", /*default=*/"4",
+           "Use this unroll factor for all loops being unrolled">,
+  ];
+}
+
+def AffineLoopUnrollAndFuse : Pass<"affine-loop-unroll-fuse", "func::FuncOp"> {
+  let summary = "Unroll and jam affine loops";
+  let constructor = "mlir::affine::createAffineLoopUnrollAndFusePass()";
+  let options = [
+    Option<"unrollJamFactor", "unroll-jam-factor", "unsigned",
+           /*default=*/"4",
+           "Use this unroll jam factor for all loops (default 4)">,
+  ];
+}
+
+def AffineLoopBlocking : Pass<"affine-loop-blocking", "func::FuncOp"> {
+  let summary = "Tile affine loop nests";
+  let constructor = "mlir::affine::createAffineLoopBlockingPass()";
+  let options = [
+    ListOption<"blockList", "tile-sizes", "int64_t",
+               "List of tile sizes for each perfect nest "
+               "(overridden by -tile-size)">,
+  ];
+}
+
 def AffineLoopTiling : Pass<"affine-loop-tile", "func::FuncOp"> {
   let summary = "Tile affine loop nests";
   let constructor = "mlir::affine::createLoopTilingPass()";
